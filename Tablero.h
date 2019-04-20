@@ -19,6 +19,8 @@ class Tablero{
     char getWiner();
     bool gameOver();
     bool isMovePosible(int reg,int col);
+    int numberOfEmptySpaces();
+    std::vector< std::vector<int> > emptySpaces();
     //sobrecarga operadores
     friend std::ostream& operator <<(std::ostream &os, Tablero tab);
 };
@@ -162,6 +164,40 @@ class Tablero{
         }
       }
       return 'N';
+  }
+  //Sobrecarga del metodo numberOfEmptySpaces
+  int Tablero::numberOfEmptySpaces(){
+    //Declaracion de variables
+    int contador=0;
+    //Ciclo for para recorrer la matriz en busca de espacios solos
+    for(int reg=0; reg<3; reg++){
+        for(int col=0; col<3; col++){
+            //Ver si es un espacio en blanco
+            if(juego[reg][col]==' '){
+                contador++;
+            }
+        }
+    }
+    //regresar el contador
+    return contador;
+  }
+  //Sobrecarga del metodo emptySpaces
+  std::vector< std::vector<int> > Tablero::emptySpaces(){
+      std::vector< std::vector<int> > returnVector;
+    //For para ver espacios vacios y meter las cordenadas en el vector
+    for(int reg=0; reg<3; reg++){
+        for(int col=0; col<3; col++){
+            //Ver si esta vacio
+            if(juego[reg][col]==' '){
+                std::vector<int> cache;
+                cache.push_back(reg);
+                cache.push_back(col);
+                returnVector.push_back(cache);
+            }
+        }
+    }
+    //regresar el vector
+    return returnVector;
   }
   //Sobrecarga del operador <<
   std::ostream& operator <<(std::ostream &os, Tablero tab){
